@@ -127,7 +127,7 @@ extern void parse_command_line(int argc, char **argv)
                 {"json", no_argument, 0, OPT_LONG_JSON},
                 {"yaml", no_argument, 0, OPT_LONG_YAML},
 		//newadd
-		{"gres",no_argument,0,'g'}
+		{"gres",no_argument,0,'g'},
 		{NULL,        0,                 0, 0}
 	};
 
