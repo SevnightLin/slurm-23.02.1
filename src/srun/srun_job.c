@@ -688,7 +688,7 @@ extern void init_srun(int argc, char **argv, log_options_t *logopt,
 	/*
 	 * Initialize plugin stack, read options from plugins, etc.
 	 */
-	init_spank_env();
+	init_spank_env();	//初始化Slurm的插件栈
 	if (spank_init(NULL) < 0) {
 		error("Plug-in initialization failed");
 		exit(error_exit);
@@ -700,13 +700,13 @@ extern void init_srun(int argc, char **argv, log_options_t *logopt,
 	if (atexit(_call_spank_fini) < 0)
 		error("Failed to register atexit handler for plugins: %m");
 
-	opt.submit_line = slurm_option_get_argv_str(argc, argv);
+	opt.submit_line = slurm_option_get_argv_str(argc, argv);	//获得srun命令的完整命令行参数
 
 	het_job_argc = argc;
 	het_job_argv = argv;
 	while (!het_job_fini) {
 		het_job_argc_off = -1;
-		if (initialize_and_process_args(het_job_argc, het_job_argv,
+		if (initialize_and_process_args(het_job_argc, het_job_argv,	//解析srun命令的参数，并将其存储在opt_list中
 						&het_job_argc_off) < 0) {
 			error("srun parameter parsing");
 			exit(1);
@@ -1203,8 +1203,8 @@ extern void create_srun_job(void **p_job, bool *got_alloc,
 			error("Job creation failure.");
 			exit(error_exit);
 		}
-		if (create_job_step(job, false, &opt) < 0)
 			exit(error_exit);
+		if (create_job_step(job, false, &opt) < 0)
 	} else if ((job_resp_list = existing_allocation())) {
 		slurm_opt_t *opt_local;
 
@@ -1678,6 +1678,8 @@ static srun_job_t *_job_create_structure(allocation_info_t *ainfo,
  	job->het_job_offset = NO_VAL;
 	job->het_job_task_offset = NO_VAL;
 	job->nhosts   = ainfo->nnodes;
+	//newadd
+	job->ifai = opt_local->ifai
 
 #if defined HAVE_FRONT_END
 	/* Limited job step support */

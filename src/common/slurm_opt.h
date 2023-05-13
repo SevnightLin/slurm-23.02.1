@@ -430,7 +430,8 @@ typedef struct {
 	char *efname;			/* error file name		*/
 	char *ifname;			/* input file name		*/
 	char *ofname;			/* output file name		*/
-
+	//newadd
+	bool ifai;				/*是否为ai作业*/
 } slurm_opt_t;
 
 extern struct option *slurm_option_table_create(slurm_opt_t *opt,

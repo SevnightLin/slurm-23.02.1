@@ -5149,6 +5149,36 @@ static slurm_cli_opt_t slurm_opt_x11 = {
 	.reset_func = arg_reset_x11,
 };
 
+//newadd ifai
+COMMON_BOOL_OPTION(ifai,"ai");
+static slurm_cli_opt_t slurm_opt_ifai = {
+	.name = "ai",
+	.has_arg = no_argument,
+	.val = "I",
+	.set_func = arg_set_ifai,
+	.get_func = arg_get_ifai,
+	.reset_func = arg_reset_ifai,
+};
+
+// static int arg_set_ifai(slurm_opt_t *opt, const char *arg)
+// {
+// 	opt->ifai = true;
+// 	return SLURM_SUCCESS;
+// }
+
+// static char *arg_get_ifai(slurm_opt_t *opt, const char *arg)
+// {
+// 	if(opt->ifai)
+// 		return xstrdup("ai job");
+// 	else
+// 		return xstrdup("not an ai job");
+// }
+
+// static void arg_reset_ifai(slurm_opt_t *opt)
+// {
+// 	opt->ifai = false;
+// }
+
 static const slurm_cli_opt_t *common_options[] = {
 	&slurm_opt__unknown_,
 	&slurm_opt_accel_bind,
@@ -5308,6 +5338,8 @@ static const slurm_cli_opt_t *common_options[] = {
 	&slurm_opt_whole,
 	&slurm_opt_wrap,
 	&slurm_opt_x11,
+	//newadd
+	&slurm_opt_ifai,
 	NULL /* END */
 };
 

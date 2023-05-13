@@ -186,6 +186,9 @@ struct sinfo_parameters {
 	bool responding_nodes;
 	bool list_reasons;
 	bool summarize;
+	//newadd
+	bool print_gres;
+	
 	struct sinfo_match_flags match_flags;
 
 	char* format;

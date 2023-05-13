@@ -166,30 +166,31 @@ static bool _enable_het_job_steps(void)
 	return true;
 }
 
-int srun(int ac, char **av)
+int srun(int ac, char **av)	//初始化Slurm环境并启动作业
 {
 	log_options_t logopt = LOG_OPTS_STDERR_ONLY;
 	bool got_alloc = false;
 	List srun_job_list = NULL;
 
-	slurm_init(NULL);
-	log_init(xbasename(av[0]), logopt, 0, NULL);
+	slurm_init(NULL);	//初始化Slurm环境
+	log_init(xbasename(av[0]), logopt, 0, NULL);	//设置日志选项
 	_set_exit_code();
 
+	//检查Slurm凭证插件和开关插件是否已经初始化，如果未初始化则会初始化它们
 	if (slurm_cred_init() != SLURM_SUCCESS)
 		fatal("failed to initialize cred plugin");
 	if (switch_init(0) != SLURM_SUCCESS )
 		fatal("failed to initialize switch plugins");
 
-	_setup_env_working_cluster();
+	_setup_env_working_cluster();	//设置工作集群的环境变量
 
-	init_srun(ac, av, &logopt, 1);
+	init_srun(ac, av, &logopt, 1);	//解析srun命令的参数并初始化作业
 	if (opt_list) {
 		if (!_enable_het_job_steps())
 			fatal("Job steps that span multiple components of a heterogeneous job are not currently supported");
 		create_srun_job((void **) &srun_job_list, &got_alloc, 0, 1);
 	} else
-		create_srun_job((void **) &job, &got_alloc, 0, 1);
+		create_srun_job((void **) &job, &got_alloc, 0, 1);	//创建作业
 
 	/*
 	 * Detect is process is in non-matching user namespace or UIDs
@@ -202,8 +203,8 @@ int srun(int ac, char **av)
 		debug3("%s: %ps GID %u and srun process GID %u mismatch",
 		       __func__, &job->step_id, job->gid, getgid());
 
-	_set_node_alias(job, srun_job_list);
-	_setup_job_env(job, srun_job_list, got_alloc);
+	_set_node_alias(job, srun_job_list);	//设置节点别名
+	_setup_job_env(job, srun_job_list, got_alloc);	//为作业初始化环境变量
 
 	/*
 	 * Determine if the first/only job was called with --pty and update

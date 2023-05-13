@@ -126,6 +126,8 @@ extern void parse_command_line(int argc, char **argv)
 		{"version",   no_argument,       0, 'V'},
                 {"json", no_argument, 0, OPT_LONG_JSON},
                 {"yaml", no_argument, 0, OPT_LONG_YAML},
+		//newadd
+		{"gres",no_argument,0,'g'}
 		{NULL,        0,                 0, 0}
 	};
 
@@ -317,6 +319,9 @@ extern void parse_command_line(int argc, char **argv)
 			suggest_completion(long_options, optarg);
 			exit(0);
 			break;
+		//newadd
+		case (int) 'g':
+			params.print_gres = true;
 		}
 	}
 
