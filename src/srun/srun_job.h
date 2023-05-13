@@ -130,7 +130,7 @@ typedef struct srun_job {
 	gid_t gid; /* resolved group id of job */
 	char *group_name; /* resolved group name of job */
 	//newadd
-	int ifai;	//是否为ai作业
+	bool ifai;	//是否为ai作业
 } srun_job_t;
 
 void    update_job_state(srun_job_t *job, srun_job_state_t newstate);
