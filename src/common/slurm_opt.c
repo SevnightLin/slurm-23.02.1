@@ -5154,7 +5154,7 @@ COMMON_BOOL_OPTION(ifai,"ai");
 static slurm_cli_opt_t slurm_opt_ifai = {
 	.name = "ai",
 	.has_arg = no_argument,
-	.val = "I",
+	.val = LONG_OPT_IFAI,
 	.set_func = arg_set_ifai,
 	.get_func = arg_get_ifai,
 	.reset_func = arg_reset_ifai,
