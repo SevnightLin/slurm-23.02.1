@@ -1680,7 +1680,7 @@ static srun_job_t *_job_create_structure(allocation_info_t *ainfo,
 	job->het_job_task_offset = NO_VAL;
 	job->nhosts   = ainfo->nnodes;
 	//newadd
-	job->ifai = opt_local->ifai
+	job->ifai = opt_local->ifai;
 
 #if defined HAVE_FRONT_END
 	/* Limited job step support */
