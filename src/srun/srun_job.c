@@ -1205,6 +1205,7 @@ extern void create_srun_job(void **p_job, bool *got_alloc,
 		}
 			exit(error_exit);
 		if (create_job_step(job, false, &opt) < 0)
+			exit(error_exit);
 	} else if ((job_resp_list = existing_allocation())) {
 		slurm_opt_t *opt_local;
 
