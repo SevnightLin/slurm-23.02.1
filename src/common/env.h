@@ -94,6 +94,8 @@ typedef struct env_options {
 	time_t job_end_time;    /* job's end time */
 	char *job_licenses;	/* job's licenses */
 	time_t job_start_time;  /* job's start time */
+	//newadd
+	bool ifai;
 } env_t;
 
 

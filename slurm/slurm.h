@@ -1892,6 +1892,8 @@ typedef struct job_info {
 	uint32_t wait4switch;   /* Maximum time to wait for minimum switches */
 	char *wckey;            /* wckey for job */
 	char *work_dir;		/* pathname of working directory */
+	//newadd
+	uint16_t ifai;
 } slurm_job_info_t;
 
 typedef slurm_job_info_t job_info_t;

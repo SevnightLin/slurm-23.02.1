@@ -3741,6 +3741,8 @@ _unpack_job_info_members(job_info_t * job, buf_t *buffer,
 	multi_core_data_t *mc_ptr;
 
 	if (protocol_version >= SLURM_23_02_PROTOCOL_VERSION) {
+		//newadd
+		safe_unpack16(&job->ifai, buffer);
 		safe_unpack32(&job->array_job_id, buffer);
 		safe_unpack32(&job->array_task_id, buffer);
 		/* The array_task_str value is stored in slurmctld and passed
@@ -3919,6 +3921,8 @@ _unpack_job_info_members(job_info_t * job, buf_t *buffer,
 	} else if (protocol_version >= SLURM_22_05_PROTOCOL_VERSION) {
 		uint16_t uint16_tmp = 0;
 		dynamic_plugin_data_t *select_jobinfo;
+		//newadd
+		safe_unpack16(&job->ifai, buffer);
 		safe_unpack32(&job->array_job_id, buffer);
 		safe_unpack32(&job->array_task_id, buffer);
 		/* The array_task_str value is stored in slurmctld and passed
@@ -4116,6 +4120,8 @@ _unpack_job_info_members(job_info_t * job, buf_t *buffer,
 	} else if (protocol_version >= SLURM_MIN_PROTOCOL_VERSION) {
 		uint16_t uint16_tmp = 0;
 		dynamic_plugin_data_t *select_jobinfo;
+		//newadd
+		safe_unpack16(&job->ifai, buffer);
 		safe_unpack32(&job->array_job_id, buffer);
 		safe_unpack32(&job->array_task_id, buffer);
 		/* The array_task_str value is stored in slurmctld and passed

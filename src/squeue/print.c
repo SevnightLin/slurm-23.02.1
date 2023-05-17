@@ -94,6 +94,9 @@ int print_jobs_array(job_info_t * jobs, int size, List format)
 	for (i = 0; i < size; i++) {
 		if (_filter_job(&jobs[i]))
 			continue;
+		//newadd
+		if (params.showai && jobs[i].ifai != 1)
+			continue;
 		if (params.priority_flag) {
 			tmp = xstrdup(jobs[i].partition);
 			tok = strtok_r(tmp, ",", &save_ptr);

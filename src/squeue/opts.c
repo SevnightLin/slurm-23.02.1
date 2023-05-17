@@ -69,6 +69,9 @@
 #define OPT_LONG_JSON         0x110
 #define OPT_LONG_YAML         0x111
 #define OPT_LONG_AUTOCOMP     0x112
+//newadd
+#define OPT_LONG_SHOWAI       0x113
+
 
 /* FUNCTIONS */
 static List  _build_job_list( char* str );
@@ -141,6 +144,8 @@ parse_command_line( int argc, char* *argv )
 		{"version",    no_argument,       0, 'V'},
 		{"json", no_argument, 0, OPT_LONG_JSON},
 		{"yaml", no_argument, 0, OPT_LONG_YAML},
+		//newadd
+		{"ai", no_argument, 0, OPT_LONG_SHOWAI},
 		{NULL,         0,                 0, 0}
 	};
 
@@ -364,6 +369,10 @@ parse_command_line( int argc, char* *argv )
 		case OPT_LONG_AUTOCOMP:
 			suggest_completion(long_options, optarg);
 			exit(0);
+			break;
+		//newadd
+		case OPT_LONG_SHOWAI:
+			params.showai = true;
 			break;
 		}
 	}

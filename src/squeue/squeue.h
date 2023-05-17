@@ -79,6 +79,8 @@ struct squeue_parameters {
 	bool no_header;
 	bool priority_flag;
 	int  verbose;
+	//newadd
+	bool showai;
 
 	char* accounts;
 	List clusters;
