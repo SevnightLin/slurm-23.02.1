@@ -7742,6 +7742,8 @@ static int _job_create(job_desc_msg_t *job_desc, int allocate, int will_run,
 	}
 
 	job_ptr = *job_pptr;
+	//newadd
+	job_ptr->ifai = job_desc->ifai;
 	job_ptr->start_protocol_ver = protocol_version;
 	job_ptr->part_ptr = part_ptr;
 	job_ptr->part_ptr_list = part_ptr_list;
@@ -10745,6 +10747,8 @@ void pack_job(job_record_t *dump_job_ptr, uint16_t show_flags, buf_t *buffer,
 
 	if (protocol_version >= SLURM_23_02_PROTOCOL_VERSION) {
 		detail_ptr = dump_job_ptr->details;
+		//newadd
+		pack16(dump_job_ptr->ifai, buffer);
 		pack32(dump_job_ptr->array_job_id, buffer);
 		pack32(dump_job_ptr->array_task_id, buffer);
 		if (dump_job_ptr->array_recs) {
@@ -10987,6 +10991,8 @@ void pack_job(job_record_t *dump_job_ptr, uint16_t show_flags, buf_t *buffer,
 		packstr(dump_job_ptr->selinux_context, buffer);
 	} else if (protocol_version >= SLURM_MIN_PROTOCOL_VERSION) {
 		detail_ptr = dump_job_ptr->details;
+		//newadd
+		pack16(dump_job_ptr->ifai, buffer);
 		pack32(dump_job_ptr->array_job_id, buffer);
 		pack32(dump_job_ptr->array_task_id, buffer);
 		if (dump_job_ptr->array_recs) {

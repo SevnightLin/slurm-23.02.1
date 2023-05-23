@@ -1735,6 +1735,8 @@ typedef struct job_descriptor {	/* For submit, allocate, and update requests */
 	char *x11_magic_cookie;	/* automatically stolen from submit node */
 	char *x11_target;	/* target hostname, or unix socket if port == 0 */
 	uint16_t x11_target_port; /* target tcp port, 6000 + the display number */
+	//newadd
+	uint16_t ifai;
 } job_desc_msg_t;
 
 typedef struct job_info {
