@@ -8180,6 +8180,9 @@ extern int validate_job_create_req(job_desc_msg_t * job_desc, uid_t submit_uid,
 	job_ptr->details->prefer = job_desc->prefer;
 	/* job_ptr->job_id = 0; */
 	job_ptr->user_id = job_desc->user_id;
+	//newadd
+	job_ptr->ifai = job_desc->ifai;
+	printf("ljxprint:src.slurmctld.job_mgr.validate_job_create_req.job_ptr->ifai=%d",job_ptr->ifai);
 	if ((rc = build_feature_list(job_ptr, false, false)) != SLURM_SUCCESS)
 		goto fini;
 	rc = node_features_g_job_valid(job_desc->features,
