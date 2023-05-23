@@ -7744,6 +7744,7 @@ static int _job_create(job_desc_msg_t *job_desc, int allocate, int will_run,
 	job_ptr = *job_pptr;
 	//newadd
 	job_ptr->ifai = job_desc->ifai;
+	printf("ljxprint:src.slurmctld.job_mgr._job_create.job_ptr->ifai:%d\n",job_ptr->ifai);
 	job_ptr->start_protocol_ver = protocol_version;
 	job_ptr->part_ptr = part_ptr;
 	job_ptr->part_ptr_list = part_ptr_list;
@@ -10435,7 +10436,7 @@ static int _pack_job(void *object, void *arg)
 				       pack_info->show_flags))
 			return SLURM_SUCCESS;
 	}
-
+	printf("ljxprint:src.slurmctld.jobmgr._pack_job.cd");
 	pack_job(job_ptr, pack_info->show_flags, pack_info->buffer,
 		 pack_info->protocol_version, pack_info->uid,
 		 pack_info->has_qos_lock);
@@ -10516,6 +10517,7 @@ extern void pack_all_jobs(char **buffer_ptr, int *buffer_size,
 	pack_info.privileged = validate_operator_user_rec(&pack_info.user_rec);
 	pack_info.visible_parts = build_visible_parts(
 		uid, (pack_info.privileged || (show_flags & SHOW_ALL)));
+	printf("ljxprint:src.slurmctld.jobmgr.pack_all_jobs.cd");
 	list_for_each_ro(job_list, _pack_job, &pack_info);
 	assoc_mgr_unlock(&locks);
 

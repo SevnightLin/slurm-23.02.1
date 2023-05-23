@@ -1323,16 +1323,16 @@ static void _slurm_rpc_allocate_resources(slurm_msg_t *msg)
 	slurm_addr_t resp_addr;
 	char *err_msg = NULL, *job_submit_user_msg = NULL;
 
-	START_TIMER;
+	START_TIMER;	//开始计时
 
-	if (slurmctld_config.submissions_disabled) {
+	if (slurmctld_config.submissions_disabled) {	//判断作业是否可以提交
 		info("Submissions disabled on system");
 		error_code = ESLURM_SUBMISSIONS_DISABLED;
 		reject_job = true;
 		goto send_msg;
 	}
 
-	if ((error_code = _valid_id("REQUEST_RESOURCE_ALLOCATION", job_desc_msg,
+	if ((error_code = _valid_id("REQUEST_RESOURCE_ALLOCATION", job_desc_msg,	//进行作业信息的验证
 				    msg->auth_uid, gid,
 				    msg->protocol_version))) {
 		reject_job = true;
@@ -1342,7 +1342,7 @@ static void _slurm_rpc_allocate_resources(slurm_msg_t *msg)
 	sched_debug3("Processing RPC: REQUEST_RESOURCE_ALLOCATION from uid=%u",
 		     msg->auth_uid);
 
-	_set_hostname(msg, &job_desc_msg->alloc_node);
+	_set_hostname(msg, &job_desc_msg->alloc_node);	//设置节点主机名
 
 	/* do RPC call */
 	if ((job_desc_msg->alloc_node == NULL) ||

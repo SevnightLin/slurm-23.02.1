@@ -6219,6 +6219,7 @@ extern job_desc_msg_t *slurm_opt_create_job_desc(slurm_opt_t *opt_local,
 		job_desc->ifai = 1;
 	else
 		job_desc->ifai = 0;
+	printf("ljxprint:src.common.slurm_opt.create_job_desc.job_desc->ifai:%d\n",job_desc->ifai);
 	job_desc->account = xstrdup(opt_local->account);
 	job_desc->acctg_freq = xstrdup(opt_local->acctg_freq);
 
