@@ -1324,7 +1324,9 @@ static void _slurm_rpc_allocate_resources(slurm_msg_t *msg)
 	char *err_msg = NULL, *job_submit_user_msg = NULL;
 
 	START_TIMER;	//开始计时
-
+	//newadd
+	printf("ljxprint:src.slurmctld.proc_req._slurm_rpc_allocate_res.job_desc_msg.ifai:%d",job_desc_msg->ifai);
+	job_ptr->ifai = job_desc_msg->ifai;
 	if (slurmctld_config.submissions_disabled) {	//判断作业是否可以提交
 		info("Submissions disabled on system");
 		error_code = ESLURM_SUBMISSIONS_DISABLED;
