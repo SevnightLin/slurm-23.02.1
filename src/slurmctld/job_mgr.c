@@ -10749,6 +10749,7 @@ void pack_job(job_record_t *dump_job_ptr, uint16_t show_flags, buf_t *buffer,
 		detail_ptr = dump_job_ptr->details;
 		//newadd
 		pack16(dump_job_ptr->ifai, buffer);
+		print("ljxprint:src.slurmctld.job_mgr.pack_job.dump_job_ptr->ifai:%d\n",dump_job_ptr->ifai);
 		pack32(dump_job_ptr->array_job_id, buffer);
 		pack32(dump_job_ptr->array_task_id, buffer);
 		if (dump_job_ptr->array_recs) {
@@ -10993,6 +10994,7 @@ void pack_job(job_record_t *dump_job_ptr, uint16_t show_flags, buf_t *buffer,
 		detail_ptr = dump_job_ptr->details;
 		//newadd
 		pack16(dump_job_ptr->ifai, buffer);
+		print("ljxprint:src.slurmctld.job_mgr.pack_job.dump_job_ptr->ifai:%d\n",dump_job_ptr->ifai);
 		pack32(dump_job_ptr->array_job_id, buffer);
 		pack32(dump_job_ptr->array_task_id, buffer);
 		if (dump_job_ptr->array_recs) {

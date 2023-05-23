@@ -3742,7 +3742,10 @@ _unpack_job_info_members(job_info_t * job, buf_t *buffer,
 
 	if (protocol_version >= SLURM_23_02_PROTOCOL_VERSION) {
 		//newadd
+		print("ljxprint:src.common.slurm_protocol._unpack_job_info.testerror\n");
+		print("ljxprint:src.common.slurm_protocol._unpack_job_info.job->ifai:%d\n",&job->ifai);
 		safe_unpack16(&job->ifai, buffer);
+		print("ljxprint:src.common.slurm_protocol._unpack_job_info.job->ifai:%d\n",&job->ifai);
 		safe_unpack32(&job->array_job_id, buffer);
 		safe_unpack32(&job->array_task_id, buffer);
 		/* The array_task_str value is stored in slurmctld and passed
