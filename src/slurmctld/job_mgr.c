@@ -8773,7 +8773,10 @@ static int _copy_job_desc_to_job_record(job_desc_msg_t *job_desc,
 	job_ptr->partition = xstrdup(job_desc->partition);
 	if (job_desc->profile != ACCT_GATHER_PROFILE_NOT_SET)
 		job_ptr->profile = job_desc->profile;
-
+	//newadd
+	job_ptr->ifai = job_desc->ifai;
+	printf("ljxprint:src.slurmctld.job_mgr._copy_job_desc_to_job_record.job_desc_msg.ifai:%d\n",job_desc->ifai);
+	printf("ljxprint:src.slurmctld.job_mgr._copy_job_desc_to_job_record.job_desc_msg.jobid:%d\n",job_desc->job_id);
 	if (job_desc->job_id != NO_VAL) {	/* already confirmed unique */
 		job_ptr->job_id = job_desc->job_id;
 	} else {
