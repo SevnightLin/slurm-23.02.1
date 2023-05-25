@@ -18449,6 +18449,10 @@ extern job_desc_msg_t *copy_job_record_to_job_desc(job_record_t *job_ptr)
 	/* construct a job_desc_msg_t from job */
 	job_desc = xmalloc(sizeof(job_desc_msg_t));
 
+	//newadd
+	job_desc->ifai				= job_ptr->ifai;
+	printf("ljxprint:src.slurmctld.job_mgr.cop_job_record_to_job_desc.job_ptr->ifai:%d\n",job_ptr->ifai);
+	printf("ljxprint:src.slurmctld.job_mgr.cop_job_record_to_job_desc.job_ptr->jobid:%d\n",job_ptr->job_id);
 	job_desc->account           = xstrdup(job_ptr->account);
 	job_desc->acctg_freq        = xstrdup(details->acctg_freq);
 	job_desc->alloc_node        = xstrdup(job_ptr->alloc_node);

@@ -122,7 +122,7 @@ slurm_allocate_resources (job_desc_msg_t *req,
 
 	req_msg.msg_type = REQUEST_RESOURCE_ALLOCATION;
 	req_msg.data     = req;
-
+	printf("ljxprint:buhuidaozheliba\n");
 	rc = slurm_send_recv_controller_msg(&req_msg, &resp_msg,
 					    working_cluster_rec);
 
@@ -205,7 +205,8 @@ slurm_allocate_resources_blocking (const job_desc_msg_t *user_req,
 
 	req_msg.msg_type = REQUEST_RESOURCE_ALLOCATION;
 	req_msg.data     = req;
-
+	printf("ljxprint:src.api.slurm_allocate_resources_blocking.req->ifai:%d\n",req->ifai);
+	printf("ljxprint:src.api.slurm_allocate_resources_blocking.req->jobid:%d\n",req->job_id);
 	rc = slurm_send_recv_controller_msg(&req_msg, &resp_msg,
 					    working_cluster_rec);
 
