@@ -8181,8 +8181,8 @@ extern int validate_job_create_req(job_desc_msg_t * job_desc, uid_t submit_uid,
 	/* job_ptr->job_id = 0; */
 	job_ptr->user_id = job_desc->user_id;
 	//newadd
-	job_ptr->ifai = job_desc->ifai;
-	printf("ljxprint:src.slurmctld.job_mgr.validate_job_create_req.job_ptr->ifai=%d\n",job_ptr->ifai);
+	//job_ptr->ifai = job_desc->ifai;
+	printf("ljxprint:src.slurmctld.job_mgr.validate_job_create_req.job_ptr->ifai=%d\n",job_desc->ifai);
 	if ((rc = build_feature_list(job_ptr, false, false)) != SLURM_SUCCESS)
 		goto fini;
 	rc = node_features_g_job_valid(job_desc->features,
@@ -10784,6 +10784,7 @@ void pack_job(job_record_t *dump_job_ptr, uint16_t show_flags, buf_t *buffer,
 		pack32(dump_job_ptr->delay_boot, buffer);
 		packstr(dump_job_ptr->failed_node, buffer);
 		pack32(dump_job_ptr->job_id, buffer);
+		printf("ljxprint:src.slurmctld.job_mgr.pack_job.dump_job_ptr->jobid:%d\n",dump_job_ptr->job_id);
 		pack32(dump_job_ptr->user_id, buffer);
 		pack32(dump_job_ptr->group_id, buffer);
 		pack32(dump_job_ptr->het_job_id, buffer);
@@ -11001,7 +11002,7 @@ void pack_job(job_record_t *dump_job_ptr, uint16_t show_flags, buf_t *buffer,
 		detail_ptr = dump_job_ptr->details;
 		//newadd
 		pack16(dump_job_ptr->ifai, buffer);
-		printf("ljxprint:src.slurmctld.job_mgr.pack_job.dump_job_ptr->ifai:%d\n",dump_job_ptr->ifai);
+		printf("ljxprint:src.slurmctld.job_mgr.pack_job.dump_job_ptr->ifai2:%d\n",dump_job_ptr->ifai);
 		pack32(dump_job_ptr->array_job_id, buffer);
 		pack32(dump_job_ptr->array_task_id, buffer);
 		if (dump_job_ptr->array_recs) {
