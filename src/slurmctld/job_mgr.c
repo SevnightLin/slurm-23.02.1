@@ -7744,8 +7744,6 @@ static int _job_create(job_desc_msg_t *job_desc, int allocate, int will_run,
 	job_ptr = *job_pptr;
 	//newadd
 	//job_ptr->ifai = job_desc->ifai;
-	printf("ljxprint:src.slurmctld.job_mgr._job_create.job_ptr->ifai:%d\n",job_ptr->ifai);
-	printf("ljxprint:src.slurmctld.job_mgr._job_create.job_desc->ifai:%d\n",job_desc->ifai);
 	job_ptr->start_protocol_ver = protocol_version;
 	job_ptr->part_ptr = part_ptr;
 	job_ptr->part_ptr_list = part_ptr_list;
@@ -8182,7 +8180,6 @@ extern int validate_job_create_req(job_desc_msg_t * job_desc, uid_t submit_uid,
 	job_ptr->user_id = job_desc->user_id;
 	//newadd
 	//job_ptr->ifai = job_desc->ifai;
-	printf("ljxprint:src.slurmctld.job_mgr.validate_job_create_req.job_ptr->ifai=%d\n",job_desc->ifai);
 	if ((rc = build_feature_list(job_ptr, false, false)) != SLURM_SUCCESS)
 		goto fini;
 	rc = node_features_g_job_valid(job_desc->features,
@@ -8775,8 +8772,6 @@ static int _copy_job_desc_to_job_record(job_desc_msg_t *job_desc,
 		job_ptr->profile = job_desc->profile;
 	//newadd
 	job_ptr->ifai = job_desc->ifai;
-	printf("ljxprint:src.slurmctld.job_mgr._copy_job_desc_to_job_record.job_desc_msg.ifai:%d\n",job_desc->ifai);
-	printf("ljxprint:src.slurmctld.job_mgr._copy_job_desc_to_job_record.job_desc_msg.jobid:%d\n",job_desc->job_id);
 	if (job_desc->job_id != NO_VAL) {	/* already confirmed unique */
 		job_ptr->job_id = job_desc->job_id;
 	} else {
@@ -10756,7 +10751,6 @@ void pack_job(job_record_t *dump_job_ptr, uint16_t show_flags, buf_t *buffer,
 		detail_ptr = dump_job_ptr->details;
 		//newadd
 		pack16(dump_job_ptr->ifai, buffer);
-		printf("ljxprint:src.slurmctld.job_mgr.pack_job.dump_job_ptr->ifai:%d\n",dump_job_ptr->ifai);
 		pack32(dump_job_ptr->array_job_id, buffer);
 		pack32(dump_job_ptr->array_task_id, buffer);
 		if (dump_job_ptr->array_recs) {
@@ -10784,7 +10778,6 @@ void pack_job(job_record_t *dump_job_ptr, uint16_t show_flags, buf_t *buffer,
 		pack32(dump_job_ptr->delay_boot, buffer);
 		packstr(dump_job_ptr->failed_node, buffer);
 		pack32(dump_job_ptr->job_id, buffer);
-		printf("ljxprint:src.slurmctld.job_mgr.pack_job.dump_job_ptr->jobid:%d\n",dump_job_ptr->job_id);
 		pack32(dump_job_ptr->user_id, buffer);
 		pack32(dump_job_ptr->group_id, buffer);
 		pack32(dump_job_ptr->het_job_id, buffer);
@@ -11002,7 +10995,6 @@ void pack_job(job_record_t *dump_job_ptr, uint16_t show_flags, buf_t *buffer,
 		detail_ptr = dump_job_ptr->details;
 		//newadd
 		pack16(dump_job_ptr->ifai, buffer);
-		printf("ljxprint:src.slurmctld.job_mgr.pack_job.dump_job_ptr->ifai2:%d\n",dump_job_ptr->ifai);
 		pack32(dump_job_ptr->array_job_id, buffer);
 		pack32(dump_job_ptr->array_task_id, buffer);
 		if (dump_job_ptr->array_recs) {
@@ -18451,8 +18443,6 @@ extern job_desc_msg_t *copy_job_record_to_job_desc(job_record_t *job_ptr)
 
 	//newadd
 	job_desc->ifai				= job_ptr->ifai;
-	printf("ljxprint:src.slurmctld.job_mgr.cop_job_record_to_job_desc.job_ptr->ifai:%d\n",job_ptr->ifai);
-	printf("ljxprint:src.slurmctld.job_mgr.cop_job_record_to_job_desc.job_ptr->jobid:%d\n",job_ptr->job_id);
 	job_desc->account           = xstrdup(job_ptr->account);
 	job_desc->acctg_freq        = xstrdup(details->acctg_freq);
 	job_desc->alloc_node        = xstrdup(job_ptr->alloc_node);

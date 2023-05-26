@@ -3743,7 +3743,7 @@ _unpack_job_info_members(job_info_t * job, buf_t *buffer,
 	if (protocol_version >= SLURM_23_02_PROTOCOL_VERSION) {
 		//newadd
 		safe_unpack16(&job->ifai, buffer);
-		printf("ljxprint:src.common.slurm_protocol._unpack_job_info.job1->ifai:%d\n",&job->ifai);
+		//problemprintf("ljxprint:src.common.slurm_protocol._unpack_job_info.job1->ifai:%d\n",&job->ifai);
 		safe_unpack32(&job->array_job_id, buffer);
 		safe_unpack32(&job->array_task_id, buffer);
 		/* The array_task_str value is stored in slurmctld and passed
@@ -3760,7 +3760,7 @@ _unpack_job_info_members(job_info_t * job, buf_t *buffer,
 		safe_unpack32(&job->delay_boot, buffer);
 		safe_unpackstr(&job->failed_node, buffer);
 		safe_unpack32(&job->job_id, buffer);
-		printf("ljxprint:src.common.slurm_protocol._unpack_job_info.job1->jobid:%d\n",&job->job_id);
+		//problemprintf("ljxprint:src.common.slurm_protocol._unpack_job_info.job1->jobid:%d\n",&job->job_id);
 		safe_unpack32(&job->user_id, buffer);
 		safe_unpack32(&job->group_id, buffer);
 		safe_unpack32(&job->het_job_id, buffer);
@@ -6700,7 +6700,7 @@ static void _pack_job_desc_msg(job_desc_msg_t *job_desc_ptr, buf_t *buffer,
 	if (protocol_version >= SLURM_23_02_PROTOCOL_VERSION) {
 		//newadd
 		pack16(job_desc_ptr->ifai, buffer);
-		printf("ljxprint:src.common.slurm_protocol_pack.job_desc1.ifai:%d,jobid:%d\n",job_desc_ptr->ifai,job_desc_ptr->job_id);
+		//printf("ljxprint:src.common.slurm_protocol_pack.job_desc1.ifai:%d,jobid:%d\n",job_desc_ptr->ifai,job_desc_ptr->job_id);
 		pack32(job_desc_ptr->site_factor, buffer);
 		packstr(job_desc_ptr->batch_features, buffer);
 		packstr(job_desc_ptr->cluster_features, buffer);
@@ -6839,7 +6839,7 @@ static void _pack_job_desc_msg(job_desc_msg_t *job_desc_ptr, buf_t *buffer,
 	} else if (protocol_version >= SLURM_22_05_PROTOCOL_VERSION) {
 		//newadd
 		pack16(job_desc_ptr->ifai, buffer);
-		printf("ljxprint:src.common.slurm_protocol_pack.job_desc2.ifai:%d,jobid:%d\n",job_desc_ptr->ifai,job_desc_ptr->job_id);
+		//printf("ljxprint:src.common.slurm_protocol_pack.job_desc2.ifai:%d,jobid:%d\n",job_desc_ptr->ifai,job_desc_ptr->job_id);
 		pack32(job_desc_ptr->site_factor, buffer);
 		packstr(job_desc_ptr->batch_features, buffer);
 		packstr(job_desc_ptr->cluster_features, buffer);
@@ -6978,7 +6978,7 @@ static void _pack_job_desc_msg(job_desc_msg_t *job_desc_ptr, buf_t *buffer,
 	} else if (protocol_version >= SLURM_MIN_PROTOCOL_VERSION) {
 		//newadd
 		pack16(job_desc_ptr->ifai, buffer);
-		printf("ljxprint:src.common.slurm_protocol_pack.job_desc3.ifai:%d,jobid:%d\n",job_desc_ptr->ifai,job_desc_ptr->job_id);
+		//printf("ljxprint:src.common.slurm_protocol_pack.job_desc3.ifai:%d,jobid:%d\n",job_desc_ptr->ifai,job_desc_ptr->job_id);
 		pack32(job_desc_ptr->site_factor, buffer);
 		packstr(job_desc_ptr->batch_features, buffer);
 		packstr(job_desc_ptr->cluster_features, buffer);
@@ -7138,7 +7138,7 @@ _unpack_job_desc_msg(job_desc_msg_t ** job_desc_buffer_ptr, buf_t *buffer,
 
 		/* load the data values */
 		safe_unpack16(&job_desc_ptr->ifai, buffer);
-		printf("ljxprint:src.common.slurm_protocol_pack._unpack.job_desc.ifai:%d\n",job_desc_ptr->ifai);
+		//printf("ljxprint:src.common.slurm_protocol_pack._unpack.job_desc.ifai:%d\n",job_desc_ptr->ifai);
 		safe_unpack32(&job_desc_ptr->site_factor, buffer);
 		safe_unpackstr(&job_desc_ptr->batch_features, buffer);
 		safe_unpackstr(&job_desc_ptr->cluster_features, buffer);

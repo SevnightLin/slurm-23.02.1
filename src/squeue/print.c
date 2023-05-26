@@ -95,11 +95,8 @@ int print_jobs_array(job_info_t * jobs, int size, List format)
 		if (_filter_job(&jobs[i]))
 			continue;
 		//newadd
-		printf("ljxprint:src.squeue.print_jobs_array.job[%d].ifai:%d\n",i,jobs[i].ifai);
-		printf("ljxprint:src.squeue.print_jobs_array.job[%d].jobid:%d\n",i,jobs[i].job_id);
 		if (params.showai && jobs[i].ifai != 1)
 		{
-			printf("ljxprint:src.squeue.print_jobs_array.cd\n");
 			continue;
 		}
 		if (params.priority_flag) {
