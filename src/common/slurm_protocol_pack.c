@@ -6698,6 +6698,9 @@ static void _pack_job_desc_msg(job_desc_msg_t *job_desc_ptr, buf_t *buffer,
 
 	/* load the data values */
 	if (protocol_version >= SLURM_23_02_PROTOCOL_VERSION) {
+		//newadd
+		pack16(job_desc_ptr->ifai, buffer);
+		printf("ljxprint:src.common.slurm_protocol_pack.job_desc1.ifai:%d,jobid:%d\n",job_desc_ptr->ifai,job_desc_ptr->job_id);
 		pack32(job_desc_ptr->site_factor, buffer);
 		packstr(job_desc_ptr->batch_features, buffer);
 		packstr(job_desc_ptr->cluster_features, buffer);
@@ -6834,6 +6837,9 @@ static void _pack_job_desc_msg(job_desc_msg_t *job_desc_ptr, buf_t *buffer,
 		pack_cron_entry(job_desc_ptr->crontab_entry, protocol_version,
 				buffer);
 	} else if (protocol_version >= SLURM_22_05_PROTOCOL_VERSION) {
+		//newadd
+		pack16(job_desc_ptr->ifai, buffer);
+		printf("ljxprint:src.common.slurm_protocol_pack.job_desc2.ifai:%d,jobid:%d\n",job_desc_ptr->ifai,job_desc_ptr->job_id);
 		pack32(job_desc_ptr->site_factor, buffer);
 		packstr(job_desc_ptr->batch_features, buffer);
 		packstr(job_desc_ptr->cluster_features, buffer);
@@ -6970,6 +6976,9 @@ static void _pack_job_desc_msg(job_desc_msg_t *job_desc_ptr, buf_t *buffer,
 		pack_cron_entry(job_desc_ptr->crontab_entry, protocol_version,
 				buffer);
 	} else if (protocol_version >= SLURM_MIN_PROTOCOL_VERSION) {
+		//newadd
+		pack16(job_desc_ptr->ifai, buffer);
+		printf("ljxprint:src.common.slurm_protocol_pack.job_desc3.ifai:%d,jobid:%d\n",job_desc_ptr->ifai,job_desc_ptr->job_id);
 		pack32(job_desc_ptr->site_factor, buffer);
 		packstr(job_desc_ptr->batch_features, buffer);
 		packstr(job_desc_ptr->cluster_features, buffer);
@@ -7128,6 +7137,8 @@ _unpack_job_desc_msg(job_desc_msg_t ** job_desc_buffer_ptr, buf_t *buffer,
 		*job_desc_buffer_ptr = job_desc_ptr;
 
 		/* load the data values */
+		safe_unpack16(&job_desc_ptr->ifai, buffer);
+		printf("ljxprint:src.common.slurm_protocol_pack._unpack.job_desc.ifai:%d\n",job_desc_ptr->ifai);
 		safe_unpack32(&job_desc_ptr->site_factor, buffer);
 		safe_unpackstr(&job_desc_ptr->batch_features, buffer);
 		safe_unpackstr(&job_desc_ptr->cluster_features, buffer);
@@ -7293,6 +7304,7 @@ _unpack_job_desc_msg(job_desc_msg_t ** job_desc_buffer_ptr, buf_t *buffer,
 		*job_desc_buffer_ptr = job_desc_ptr;
 
 		/* load the data values */
+		safe_unpack16(&job_desc_ptr->ifai, buffer);
 		safe_unpack32(&job_desc_ptr->site_factor, buffer);
 		safe_unpackstr_xmalloc(&job_desc_ptr->batch_features,
 				       &uint32_tmp, buffer);
@@ -7509,6 +7521,7 @@ _unpack_job_desc_msg(job_desc_msg_t ** job_desc_buffer_ptr, buf_t *buffer,
 		*job_desc_buffer_ptr = job_desc_ptr;
 
 		/* load the data values */
+		safe_unpack16(&job_desc_ptr->ifai, buffer);
 		safe_unpack32(&job_desc_ptr->site_factor, buffer);
 		safe_unpackstr_xmalloc(&job_desc_ptr->batch_features,
 				       &uint32_tmp, buffer);
