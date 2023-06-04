@@ -167,9 +167,9 @@ extern void parse_command_line(int argc, char **argv)
 		working_cluster_rec = list_peek(params.clusters);
 		params.local = true;
 	}
-
+	//newadd g
 	while ((opt_char = getopt_long(argc, argv,
-				       "adeFhi:lM:n:No:O:p:rRsS:t:TvV",
+				       "adeFghi:lM:n:No:O:p:rRsS:t:TvV",
 				       long_options, &option_index)) != -1) {
 		switch (opt_char) {
 		case (int)'?':
@@ -322,6 +322,7 @@ extern void parse_command_line(int argc, char **argv)
 		//newadd
 		case (int) 'g':
 			params.print_gres = true;
+			break;
 		}
 	}
 
