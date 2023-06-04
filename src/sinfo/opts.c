@@ -396,9 +396,9 @@ extern void parse_command_line(int argc, char **argv)
 		if (!(params.state_list = _build_state_list (params.states)))
 			fatal ("Unable to build state list for -R!");
 	}
-
+	//newadd
 	if (params.dead_nodes || params.nodes || params.partition ||
-			params.responding_nodes ||params.state_list)
+			params.responding_nodes ||params.state_list ||params.print_gres)
 		params.filtering = true;
 
 	if (params.verbose)

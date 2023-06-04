@@ -718,6 +718,10 @@ static bool _filter_out(node_info_t *node_ptr)
 			return true;
 	}
 
+	//newadd
+	if (params.print_gres && node_ptr->gres == NULL) 
+		return true;
+
 	if (params.dead_nodes && !IS_NODE_NO_RESPOND(node_ptr))
 		return true;
 
