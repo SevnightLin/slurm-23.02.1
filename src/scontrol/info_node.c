@@ -122,6 +122,47 @@ scontrol_print_node(char *node_name, node_info_msg_t *node_buffer_ptr)
 	}
 }
 
+//newadd
+extern void
+scontrol_print_gres(char *node_name, node_info_msg_t *node_buffer_ptr)
+{
+	int i, j, print_cnt = 0;
+	static int last_inx = 0;
+
+	for (j = 0; j < node_buffer_ptr->record_count; j++) {
+		if (node_buffer_ptr->node_array[j].gres == NULL)
+			continue;
+		if (node_name) {
+			i = (j + last_inx) % node_buffer_ptr->record_count;
+			if ((node_buffer_ptr->node_array[i].name == NULL) ||
+			    xstrcmp (node_name,
+				    node_buffer_ptr->node_array[i].name))
+				continue;
+		} else if (node_buffer_ptr->node_array[j].name == NULL)
+			continue;
+		else
+			i = j;
+		print_cnt++;
+		slurm_print_node_table (stdout,
+					& node_buffer_ptr->node_array[i],
+					one_liner);
+
+		if (node_name) {
+			last_inx = i;
+			break;
+		}
+	}
+
+	if (print_cnt == 0) {
+		if (node_name) {
+			exit_code = 1;
+			if (quiet_flag != 1)
+				printf ("Node %s not found or Node %s do not have gres\n", node_name, node_name);
+		} else if (quiet_flag != 1)
+				printf ("No nodes in the system\n");
+	}
+}
+
 
 /*
  * scontrol_print_node_list - print information about the supplied node list
@@ -227,6 +268,114 @@ extern void scontrol_print_node_list(char *node_list, int argc, char **argv)
 
 			while ((node_name = hostlist_shift(host_list))) {
 				scontrol_print_node(node_name, node_info_ptr);
+				free(node_name);
+			}
+		}
+
+		hostlist_destroy(host_list);
+	}
+	return;
+}
+
+//newadd
+extern void scontrol_print_gres_list(char *node_list, int argc, char **argv)
+{
+	node_info_msg_t *node_info_ptr = NULL;
+	partition_info_msg_t *part_info_ptr = NULL;
+	hostlist_t host_list = NULL;
+	int error_code;
+	uint16_t show_flags = 0;
+
+	if (all_flag)
+		show_flags |= SHOW_ALL;
+	if (detail_flag)
+		show_flags |= SHOW_DETAIL;
+	if (future_flag)
+		show_flags |= SHOW_FUTURE;
+
+	error_code = scontrol_load_nodes(&node_info_ptr, show_flags);
+	if (error_code) {
+		exit_code = 1;
+		if (quiet_flag != 1)
+			slurm_perror ("slurm_load_node error");
+		return;
+	}
+
+	if (quiet_flag == -1) {
+		char time_str[256];
+		slurm_make_time_str ((time_t *)&node_info_ptr->last_update,
+			             time_str, sizeof(time_str));
+		printf ("last_update_time=%s, records=%d\n",
+			time_str, node_info_ptr->record_count);
+	}
+
+	error_code = scontrol_load_partitions(&part_info_ptr);
+	if (error_code) {
+		exit_code = 1;
+		if (quiet_flag != 1)
+			slurm_perror("slurm_load_partitions error");
+		return;
+	}
+	slurm_populate_node_partitions(node_info_ptr, part_info_ptr);
+
+	if (node_list == NULL) {
+		if (mime_type)
+			error_code =
+				DATA_DUMP_CLI(NODES, *node_info_ptr, "nodes",
+					      argc, argv, NULL, mime_type);
+		else
+			scontrol_print_gres(NULL, node_info_ptr);
+	} else {
+		if (!(host_list = hostlist_create(node_list))) {
+			exit_code = 1;
+			if (quiet_flag != 1) {
+				if (errno == EINVAL) {
+					fprintf(stderr,
+					        "unable to parse node list %s\n",
+					        node_list);
+				 } else if (errno == ERANGE) {
+					fprintf(stderr,
+					        "too many nodes in supplied range %s\n",
+					        node_list);
+				} else
+					perror("error parsing node list");
+			}
+		}
+
+		if (mime_type) {
+			char *node_name;
+			int i = 0, host_count = hostlist_count(host_list);
+			node_info_t **nodes =
+				xcalloc(host_count + 1, sizeof(*nodes));
+
+			while ((node_name = hostlist_shift(host_list))) {
+				for (int j = 0;
+				     (i < host_count) &&
+				     (j < node_info_ptr->record_count);
+				     j++) {
+					node_info_t *n =
+						&node_info_ptr->node_array[j];
+
+					if (!n->name ||
+					    xstrcmp(node_name, n->name))
+						continue;
+
+					nodes[i] = n;
+					i++;
+				}
+
+				free(node_name);
+			}
+
+			error_code = DATA_DUMP_CLI(NODE_ARRAY, nodes, "nodes",
+						   argc, argv, NULL, mime_type);
+
+			xfree(nodes);
+		} else {
+			char *node_name;
+
+			while ((node_name = hostlist_shift(host_list))) {
+				scontrol_print_gres(node_name, node_info_ptr);
 				free(node_name);
 			}
 		}
