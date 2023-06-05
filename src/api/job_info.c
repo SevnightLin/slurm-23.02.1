@@ -447,6 +447,11 @@ slurm_sprint_job_info ( job_info_t * job_ptr, int one_liner )
 			   job_ptr->het_job_id, job_ptr->het_job_offset);
 	}
 	xstrfmtcat(out, "JobName=%s", job_ptr->name);
+	//newadd
+	if (job_ptr->ifai == 1)
+		xstrfmtcat(out, "JobIfai=true");
+	else
+		xstrfmtcat(out, "JobIfai=false");
 	xstrcat(out, line_end);
 
 	/****** Line ******/
