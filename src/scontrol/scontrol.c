@@ -1741,7 +1741,7 @@ static void _show_it(int argc, char **argv)
 	} else {
 		val = NULL;
 	}
-
+	//newadd
 	if (xstrncasecmp(tag, "aliases", MAX(tag_len, 1)) == 0) {
 		if (val)
 			_print_aliases (val);
@@ -1810,6 +1810,9 @@ static void _show_it(int argc, char **argv)
 		scontrol_print_topo (val);
 	} else if (xstrncasecmp(tag, "gres", MAX(tag_len, 1)) == 0) {
 		scontrol_print_gres_list(val, argc, argv);
+	} else if (xstrncasecmp(tag, "aijobs", MAX(tag_len, 1)) == 0 ||
+		   xstrncasecmp(tag, "aijobid", MAX(tag_len, 1)) == 0 ) {
+		scontrol_print_aijob(val, argc, argv);
 	} else {
 		exit_code = 1;
 		if (quiet_flag != 1)
