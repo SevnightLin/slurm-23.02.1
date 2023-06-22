@@ -6214,8 +6214,8 @@ extern job_desc_msg_t *slurm_opt_create_job_desc(slurm_opt_t *opt_local,
 
 	slurm_init_job_desc_msg(job_desc);
 
-	//newadd
-	if(opt_local->ifai)
+	//newadd change
+	if(opt_local->ifai || opt_local->gres || opt_local->gpus || opt_local->gpus_per_node || opt_local->gpus_per_socket || opt_local->gpus_per_task)
 		job_desc->ifai = 1;
 	else
 		job_desc->ifai = 0;
